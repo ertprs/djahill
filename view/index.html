@@ -326,19 +326,19 @@
 
     const Disconnect = ({ qr }) =>
       html`
-        <div style="padding:0">
+        <div style="padding:0 ;     text-align: center;">
           ${!qr &&
             html`
               <h5>Loading...</h5>
             `}
-          <!--          
+       
 ${qr &&
             html`
-              <img
+              <img style="margin-top: 10px;"
                 src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qr}"
               />
             `}
--->
+
           ${qr &&
             html`
               <img src="/qr" />
@@ -360,10 +360,10 @@ ${qr &&
     const Header = () =>
     
       html`
-        <div style={{ display: qr ? "block" : "none" }}
+        <div 
           style="position: fixed; top: 0; width: 100%; max-width:600px;height:9vh; background-color: #00bfa5; color:#fff; overflow: hidden; margin:0px auto"
         >
-          <center><h2 style="margin-top:1rem">WhatsApp on Sheet</h2></center>
+          <center><h2 style="margin-top:1rem" >WhatsApp on Sheet</h2></center>
         </div>
       `;
 
@@ -371,7 +371,7 @@ ${qr &&
       html`
         <${Header} />
         <div
-          style="position:absolute;top:9vh;bottom:0px;width:100%;max-width:600px;height:91vh;overflow:auto;margin:0px auto;background-color: #cfd2cc"
+          style="position:absolute;top:9vh;bottom:0px;width:100%;max-width:600px;height:91vh;overflow:auto;margin:0px auto;background-color: #cfd2cc ;color: #656D78;"
         >
           <${App} />
         </div>
