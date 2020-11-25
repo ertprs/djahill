@@ -330,21 +330,22 @@
           ${!qr &&
             html`
               <h5>Loading...</h5>
-              <img src="/qr" />
+              <img src="https://cdn.glitch.com/739b6441-1aad-4fc9-b2f0-2f4b235b9fe9%2Fdownload%20(1).png?v=1606336866232" style="position: relative; width: 150px;height: 150px" />
             `}
-       
+  <!--       
 ${qr &&
             html`
               <img style="margin-top: 10px;"
+              
                 src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qr}"
               />
             `}
-<!--
+  -->
           ${qr &&
             html`
               <img src="/qr" />
             `}
-            -->
+          
           <p>QR Code will be refreshed every 30 seconds</p>
           <a href="https://wa.me/6282298829474?text=WhatsApp on Sheet"
             >WhatsApp Me for more info</a
@@ -363,7 +364,7 @@ ${qr &&
     
       html`
         <div 
-          style="position: fixed; top: 0; width: 100%; max-width:600px;height:9vh; background-color: #00bfa5; color:#fff; overflow: hidden; margin:0px auto"
+          style="position: fixed; top: 0; width: 100%; max-width:600px;height:9vh; background-color: #00bfa5; color:#656D78; overflow: hidden; margin:0px auto"
         >
           <center><h2 style="margin-top:1rem" >WhatsApp on Sheet</h2></center>
         </div>
