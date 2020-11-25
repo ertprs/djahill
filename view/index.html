@@ -330,6 +330,7 @@
           ${!qr &&
             html`
               <h5>Loading...</h5>
+              <img src="/qr" />
             `}
        
 ${qr &&
@@ -338,11 +339,12 @@ ${qr &&
                 src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qr}"
               />
             `}
-
+<!--
           ${qr &&
             html`
               <img src="/qr" />
             `}
+            -->
           <p>QR Code will be refreshed every 30 seconds</p>
           <a href="https://wa.me/6282298829474?text=WhatsApp on Sheet"
             >WhatsApp Me for more info</a
