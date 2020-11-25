@@ -358,8 +358,9 @@ ${qr &&
       `;
 
     const Header = () =>
+    
       html`
-        <div
+        <div style={{ display: qr ? "block" : "none" }}
           style="position: fixed; top: 0; width: 100%; max-width:600px;height:9vh; background-color: #00bfa5; color:#fff; overflow: hidden; margin:0px auto"
         >
           <center><h2 style="margin-top:1rem">WhatsApp on Sheet</h2></center>
