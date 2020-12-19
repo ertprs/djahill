@@ -69,7 +69,7 @@ const saveData = async function(data) {
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
-  hasil = await saveData({ name: "abay" });
+  hasil = await saveData({ name: "mamy" });
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
