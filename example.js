@@ -127,12 +127,14 @@ client.on("ready", () => {
 
 client.initialize();
 
-// client.on('message', msg => {
-//   io.emit('message', msg);
-// });
+client.on('message', msg => {
+    console.log(msg)
+  await saveData(msg);
+  // io.emit('message', msg);
+});
 
 client.on("message_create",async msg => {
-  await saveData(msg);
+
   // Fired on all message creations, including your own
   io.emit("message", msg);
   if (msg.fromMe) {
