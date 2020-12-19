@@ -5,7 +5,6 @@ const CTA_SELECTOR = "#new_user_session > button > span";
 const fs = require("fs");
 const cookiesFilePath = "cookies.json";
 const url = "https://www.bukalapak.com/dompet/dana?from=nav_header";
-let nominal = "300000";
 let spanVal;
 
 // let indomaret = '#qa-payment-indomaret > div';
@@ -151,7 +150,7 @@ async function closeBrowser(browser) {
 // (async () => {
 //   let metode = "indomart";
 //   console.log(metode);
-//   await playTest(
+//   await topUp(
 //     "https://www.bukalapak.com/dompet/dana?from=nav_header",
 //     nominal,
 //     metode

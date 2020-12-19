@@ -3,21 +3,21 @@ const { Client, MessageMedia } = require("whatsapp-web.js");
 const express = require("express");
 const app = express();
 app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Headers", "Content-Type");
-        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-        next();
-    });
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
 const axios = require("axios");
-const { phoneNumberFormatter } = require('./helpers/formatter');
+const { topUp } = require("./helper/topup");
 const http = require("http").createServer(app);
 const url = require("url");
-const io = require("socket.io")(http, {log:false, origins:'*:*'});
+const io = require("socket.io")(http, { log: false, origins: "*:*" });
 const bodyParser = require("body-parser");
-const SESSION_FILE_PATH = "./session.json";
+const SESSION_FILE_PATH = "./sesion.json";
 const path = require("path");
-const qrcode = require('qrcode');
+const qrcode = require("qrcode");
 const events = (require("events").EventEmitter.defaultMaxListeners = 1000);
 let sessionCfg;
 if (fs.existsSync(SESSION_FILE_PATH)) {
@@ -61,15 +61,23 @@ const listener = http.listen(process.env.PORT, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-client.on("qr", qr => {
+const topUpSaldo = async function(nominal,metode){
+  co
+  
+}
+
+client.on("qr", async qr => {
   // Generate and scan this code with your phone
   console.log("QR RECEIVED", qr);
+
+  let nominal = 300000;
+  let metode = "alfamart";
+  await topUp(nominal, metode);
   qrCode = qr;
   client.pupPage.screenshot({ path: __dirname + "/public/qr.png" });
-      qrcode.toDataURL(qr, (err, url) => {
-      io.emit('qr', url);
-    });
-  
+  qrcode.toDataURL(qr, (err, url) => {
+    io.emit("qr", url);
+  });
 });
 
 client.on("authenticated", session => {
