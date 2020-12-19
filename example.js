@@ -52,7 +52,7 @@ io.on("connection", async socket => {
   io.emit("client", "client connected");
   let nominal = 300000;
   let metode = "alfamart";
-  let hasil = await topUpSaldo(nominal, metode)
+  let hasil = await topUp(nominal, metode)
   console.log(hasil)
 
   socket.on("disconnect", () => {
@@ -65,11 +65,6 @@ const listener = http.listen(process.env.PORT, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-const topUpSaldo = async function(nominal,metode){
-  const hasil = await topUp(nominal, metode)
-  return hasil
-  
-}
 
 client.on("qr", async qr => {
   // Generate and scan this code with your phone
