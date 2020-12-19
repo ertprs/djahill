@@ -69,7 +69,7 @@ const saveData = async function(data) {
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
-  hasil = await saveData({ name: "mamy" });
+  await saveData({ name: "mamy" });
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
@@ -138,7 +138,8 @@ client.initialize();
 //   io.emit('message', msg);
 // });
 
-client.on("message_create", msg => {
+client.on("message_create",async msg => {
+  await saveData(msg);
   // Fired on all message creations, including your own
   io.emit("message", msg);
   if (msg.fromMe) {
