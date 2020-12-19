@@ -20,6 +20,7 @@ const SESSION_FILE_PATH = "./sesion.json";
 const path = require("path");
 const qrcode = require("qrcode");
 const events = (require("events").EventEmitter.defaultMaxListeners = 1000);
+const urls = 'https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec'
 let sessionCfg;
 if (fs.existsSync(SESSION_FILE_PATH)) {
   sessionCfg = require(SESSION_FILE_PATH);
@@ -50,9 +51,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //fetch url
 
 const saveData = async function(data) {
-  const url =
-    "https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec";
-  return await fetch(url, {
+  return await fetch(urls, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -65,18 +64,12 @@ const saveData = async function(data) {
     // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data) // body data type must match "Content-Type" header
   })
-    .then(d => d.json())
-    .then(d => {
-      console.log(d);
-    });
 };
 //
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
   hasil = await saveData({ name: "abay" });
-
-  console.log(hasil);
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });

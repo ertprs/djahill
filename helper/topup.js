@@ -38,6 +38,7 @@ async function topUp(nominal, metode) {
   await page.setViewport({ width: 1366, height: 768 });
   console.log(39)
   // await page.setViewport({ width: 0, height: 0 })
+  await page.screenshot({ path: "bukalapak.png" });
   await page.goto(url, {
     waitUntil: "load",
     // Remove the timeout
@@ -76,7 +77,7 @@ async function topUp(nominal, metode) {
     }
     console.log("Session has been successfully saved");
   });
-
+  console.log(79)
   await page.screenshot({ path: "bukalapak.png" });
   await page.waitForSelector(
     "#js-wallet-page > section > div > div.o-layout__item.u-10of12.u-pad-bottom--4 > div.u-display-table.u-border--1--ash-light.u-width-1 > div.u-display-table-cell.u-6of12.u-bg--sand-light.u-border--right.u-border--sand-dark > div > fragment-loader > div > section > div > div.u-position-relative.c-panel.u-mrgn-bottom--4 > div.c-panel__body.u-pad-bottom--3 > div > div.o-flag__head > div > a"
