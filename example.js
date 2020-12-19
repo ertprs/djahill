@@ -1,3 +1,4 @@
+const urls = 'https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec';
 const fs = require("fs");
 const { Client, MessageMedia } = require("whatsapp-web.js");
 const express = require("express");
@@ -11,16 +12,14 @@ app.use(function(req, res, next) {
   next();
 });
 const axios = require("axios");
-const { topUp } = require("./helper/topup");
 const http = require("http").createServer(app);
 const url = require("url");
 const io = require("socket.io")(http, { log: false, origins: "*:*" });
 const bodyParser = require("body-parser");
-const SESSION_FILE_PATH = "./sesion.json";
+const SESSION_FILE_PATH = "./session.json";
 const path = require("path");
 const qrcode = require("qrcode");
 const events = (require("events").EventEmitter.defaultMaxListeners = 1000);
-const urls = 'https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec'
 let sessionCfg;
 if (fs.existsSync(SESSION_FILE_PATH)) {
   sessionCfg = require(SESSION_FILE_PATH);
