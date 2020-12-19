@@ -127,7 +127,7 @@ client.on("ready", () => {
 
 client.initialize();
 
-client.on('message', msg => {
+client.on('message',async msg => {
     console.log(msg)
   await saveData(msg);
   // io.emit('message', msg);
