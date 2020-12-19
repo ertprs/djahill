@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 //fetch url
 
-const saveData = async function(body) {
+const saveData = async function(data) {
   const url =
     "https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec";
   return await fetch(url, {
@@ -63,29 +63,20 @@ const saveData = async function(body) {
     },
     redirect: "follow", // manual, *follow, error
     // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(body) // body data type must match "Content-Type" header
-  }).then(res => {
-    console.log(res)
-        if (res.status >= 400) {
-        throw new Error("Bad response from server");
-        }
-        return res.json();
-    })
-    .then(user => {
-        console.log(user);
-
-    })
-    .catch(err => {
-        // console.error(err);
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  })
+    .then(d => d.json())
+    .then(d => {
+      console.log(d);
     });
 };
 //
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
-  hasil = await saveData({ nama: "abay" });
-  
-  console.log(hasil)
+  hasil = await saveData({ name: "abay" });
+
+  console.log(hasil);
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
