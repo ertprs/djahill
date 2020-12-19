@@ -43,6 +43,7 @@ async function topUp(nominal, metode) {
     // Remove the timeout
     timeout: 0
   });
+  await navigationPromise;
   let loggin;
   try {
     loggin = await page.waitForSelector(USERNAME_SELECTOR, { timeout: 5000 });
