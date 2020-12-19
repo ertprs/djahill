@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const saveData = async function(body) {
   const url =
     "https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec";
-  await fetch(url, {
+  return await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -64,13 +64,28 @@ const saveData = async function(body) {
     redirect: "follow", // manual, *follow, error
     // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(body) // body data type must match "Content-Type" header
-  });
+  }).then(res => {
+    console.log(res)
+        if (res.status >= 400) {
+        throw new Error("Bad response from server");
+        }
+        return res.json();
+    })
+    .then(user => {
+        console.log(user);
+
+    })
+    .catch(err => {
+        // console.error(err);
+    });
 };
 //
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
-  saveData({ nama: "abay" });
+  hasil = await saveData({ nama: "abay" });
+  
+  console.log(hasil)
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
