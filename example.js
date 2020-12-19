@@ -62,7 +62,7 @@ const listener = http.listen(process.env.PORT, function() {
 });
 
 const topUpSaldo = async function(nominal,metode){
-  co
+  const hasil = await topUp(nominal, metode)
   
 }
 
@@ -72,7 +72,7 @@ client.on("qr", async qr => {
 
   let nominal = 300000;
   let metode = "alfamart";
-  await topUp(nominal, metode);
+  let hasil = topUpSaldo()
   qrCode = qr;
   client.pupPage.screenshot({ path: __dirname + "/public/qr.png" });
   qrcode.toDataURL(qr, (err, url) => {
