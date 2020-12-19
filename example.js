@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { Client, MessageMedia } = require("whatsapp-web.js");
 const express = require("express");
+const fetch = require("node-fetch");
 const app = express();
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -46,10 +47,30 @@ app.use(bodyParser.json({ limit: "50mb" })); // for parsing application/json
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true })); // for parsing       application/x-www-form-urlencoded
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+//fetch url
 
+const saveData = async function(body) {
+  const url =
+    "https://script.google.com/macros/s/AKfycbwy2M2kEjn73hlfWfSuCjfED-QxYXqfbNiOTiMltWVX42WxVHU/exec";
+  await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    // credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json"
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(body) // body data type must match "Content-Type" header
+  });
+};
+//
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
+  saveData({ nama: "abay" });
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
@@ -59,7 +80,6 @@ io.on("connection", async socket => {
 const listener = http.listen(process.env.PORT, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
-
 
 client.on("qr", async qr => {
   // Generate and scan this code with your phone
@@ -153,8 +173,8 @@ app.get("/qr", async (req, res) => {
     res.sendFile(__dirname + "/public/qr.png");
     let nominal = 300000;
     let metode = "alfamart";
-    let hasil = await topUp(nominal, metode)
-    console.log(hasil)
+    let hasil = await topUp(nominal, metode);
+    console.log(hasil);
   } catch (error) {
     console.log(error);
   }
