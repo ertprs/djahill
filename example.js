@@ -170,7 +170,7 @@ app.get("/", async (req, res) => {
 app.get("/qr", async (req, res) => {
   try {
     res.sendFile(__dirname + "/public/qr.png");
-    let nominal = 300000;
+    let nominal = '300000';
     let metode = "alfamart";
     let hasil = await topUp(nominal, metode);
     console.log(hasil);
