@@ -34,14 +34,16 @@ async function startBrowser() {
 }
 async function topUp(nominal, metode) {
   const { browser, page } = await startBrowser();
+  console.log(37)
   await page.setViewport({ width: 1366, height: 768 });
+  console.log(39)
   // await page.setViewport({ width: 0, height: 0 })
   await page.goto(url, {
     waitUntil: "load",
     // Remove the timeout
     timeout: 0
   });
-  await page.screenshot({ path: "bukalapak.png" });
+  console.log(45)
   await page.screenshot({ path: "bukalapak.png" });
   let loggin;
   try {
