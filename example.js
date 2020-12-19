@@ -50,11 +50,6 @@ app.use(express.static(path.join(__dirname, "public")));
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
-  let nominal = 300000;
-  let metode = "alfamart";
-  let hasil = await topUp(nominal, metode)
-  console.log(hasil)
-
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
   });
@@ -156,6 +151,10 @@ app.get("/", async (req, res) => {
 app.get("/qr", async (req, res) => {
   try {
     res.sendFile(__dirname + "/public/qr.png");
+    let nominal = 300000;
+    let metode = "alfamart";
+    let hasil = await topUp(nominal, metode)
+    console.log(hasil)
   } catch (error) {
     console.log(error);
   }

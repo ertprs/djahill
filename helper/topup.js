@@ -16,6 +16,7 @@ async function startBrowser() {
     args: ["--no-sandbox"]
   });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   const previousSession = fs.existsSync(cookiesFilePath);
   if (previousSession) {
     // If file exist load the cookies
@@ -34,16 +35,14 @@ async function startBrowser() {
 async function topUp(nominal, metode) {
   const { browser, page } = await startBrowser();
   await page.setViewport({ width: 1366, height: 768 });
-  const navigationPromise = page.waitForNavigation({
-    waitUntil: "domcontentloaded"
-  });
   // await page.setViewport({ width: 0, height: 0 })
   await page.goto(url, {
     waitUntil: "load",
     // Remove the timeout
     timeout: 0
   });
-  await navigationPromise;
+  await page.screenshot({ path: "bukalapak.png" });
+  await page.screenshot({ path: "bukalapak.png" });
   let loggin;
   try {
     loggin = await page.waitForSelector(USERNAME_SELECTOR, { timeout: 5000 });
