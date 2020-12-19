@@ -107,12 +107,10 @@ client.on("auth_failure", msg => {
 
 client.on("disconnected", async reason => {
   console.log("Client was logged out", reason);
-  if (reason === "UNPAIRED") {
-    fs.unlinkSync(SESSION_FILE_PATH, function(err) {
-      if (err) return console.log(err);
-      console.log("Session file deleted!");
-    });
-  }
+  fs.unlinkSync(SESSION_FILE_PATH, function(err) {
+      if(err) return console.log(err);
+      console.log('Session file deleted!');
+  });
   client.destroy();
   client.initialize();
 });
@@ -120,11 +118,6 @@ client.on("disconnected", async reason => {
 client.on("change_state", async reason => {
   console.log(reason);
   io.emit("change_state", reason);
-
-  if (reason === "UNPAIRED") {
-    client.destroy();
-    client.initialize();
-  }
 });
 
 client.on("ready", () => {
