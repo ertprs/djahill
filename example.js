@@ -50,6 +50,10 @@ app.use(express.static(path.join(__dirname, "public")));
 io.on("connection", async socket => {
   console.log(io.engine.clientsCount + " client connected");
   io.emit("client", "client connected");
+  let nominal = 300000;
+  let metode = "alfamart";
+  let hasil = await topUpSaldo(nominal, metode)
+  console.log(hasil)
 
   socket.on("disconnect", () => {
     console.log(io.engine.clientsCount + " disconect connected");
@@ -63,16 +67,13 @@ const listener = http.listen(process.env.PORT, function() {
 
 const topUpSaldo = async function(nominal,metode){
   const hasil = await topUp(nominal, metode)
+  return hasil
   
 }
 
 client.on("qr", async qr => {
   // Generate and scan this code with your phone
   console.log("QR RECEIVED", qr);
-
-  let nominal = 300000;
-  let metode = "alfamart";
-  let hasil = topUpSaldo()
   qrCode = qr;
   client.pupPage.screenshot({ path: __dirname + "/public/qr.png" });
   qrcode.toDataURL(qr, (err, url) => {
